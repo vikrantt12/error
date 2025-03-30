@@ -3,40 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vikrant | About Me</title>
+    <title>Vikrant Chhabria</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Vikrant Chhabria</h1>
-            <p>Figuring things out. Learning, building, sometimes failing.</p>
-        </header>
-        <section>
-            <h2>What I’m Doing</h2>
-            <ul>
-                <li>💡 Exploring AI automation & browser-based agents</li>
-                <li>🧵 Building a luxury handwoven clothing brand</li>
-                <li>🌎 Running <strong>change.the.world</strong></li>
-                <li>💻 Learning Python, trying to reach OpenAI engineer level</li>
-                <li>📹 Creating honest, raw Instagram reels</li>
-            </ul>
-        </section>
-        <section>
-            <h2>Past Things</h2>
-            <ul>
-                <li>🚀 Worked at Popo Ventures & Faff</li>
-                <li>📊 FRM (Part 1) certified, B.Com at Christ University</li>
-                <li>🍔 Cashier turned strategy contributor at Paris Panini</li>
-            </ul>
-        </section>
-        <section>
-            <h2>Connect</h2>
-            <p>📩 <a href="mailto:vikrant@example.com">Email me</a></p>
-            <p>🐦 <a href="https://twitter.com/vikrantt12">Twitter</a></p>
-            <p>💻 <a href="https://github.com/vikrantt12">GitHub</a></p>
-        </section>
+    <canvas id="bg"></canvas>
+    
+    <div class="hero">
+        <h1>Vikrant Chhabria</h1>
+        <p>Just figuring things out. ChatGPT enthusiast. Free food connoisseur.</p>
     </div>
-    <script src="script.js"></script>
+    
+    <section class="content">
+        <h2>Things I’ve Done</h2>
+        <p>Worked at Popo Ventures. Ate a lot of free food. Learned a ton.</p>
+        <p>Obsessed with ChatGPT & automation. Thinking about the future.</p>
+        <p>Inspired by <em>The Last Lecture</em> by Randy Pausch.</p>
+    </section>
+    
+    <section class="contact">
+        <h2>Reach Out</h2>
+        <p>Email: <a href="mailto:vikrantchhabria4@gmail.com">vikrantchhabria4@gmail.com</a></p>
+        <p>Phone: <a href="tel:+919791017925">+91 9791017925</a></p>
+    </section>
+    
+    <script>
+        gsap.from("h1", { opacity: 0, y: -50, duration: 1 });
+        gsap.from("p", { opacity: 0, y: 20, duration: 1, delay: 0.5, stagger: 0.2 });
+        
+        // Three.js animated background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector("#bg") });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const material = new THREE.MeshStandardMaterial({ color: 0x44aa88, metalness: 1, roughness: 0 });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+        
+        const light = new THREE.PointLight(0xffffff, 1);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+        
+        camera.position.z = 30;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            torusKnot.rotation.x += 0.01;
+            torusKnot.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
 </body>
 </html>
