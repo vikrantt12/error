@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -12,6 +13,22 @@ body {
     text-align: center;
 }
 
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
 /* Glowing neon text */
 h1, h2 {
     font-size: 3rem;
@@ -23,9 +40,18 @@ h1:hover {
     text-shadow: 0 0 15px magenta, 0 0 30px magenta, 0 0 45px magenta;
 }
 
+.tagline {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: cyan;
+    opacity: 0.8;
+}
+
 p {
     font-size: 1.2rem;
     opacity: 0.8;
+    line-height: 1.6;
+    margin: 15px 0;
 }
 
 /* Cyberpunk glitch effect */
@@ -58,19 +84,27 @@ a:hover::before {
     background: magenta;
 }
 
-/* Fancy section borders */
+/* Content sections */
 .content, .contact {
-    margin-top: 50px;
-    padding: 20px;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 40px 20px;
     border: 2px solid cyan;
     border-radius: 10px;
     box-shadow: 0 0 10px cyan;
     transition: 0.3s ease-in-out;
+    background: rgba(0, 0, 0, 0.7);
 }
 
 .content:hover, .contact:hover {
     border-color: magenta;
     box-shadow: 0 0 15px magenta;
+}
+
+.footer-note {
+    font-style: italic;
+    margin-top: 30px;
+    opacity: 0.6;
 }
 
 /* Scroll glow effect */
@@ -83,4 +117,3 @@ a:hover::before {
 h2 {
     animation: scroll-glow 3s infinite alternate;
 }
- 
