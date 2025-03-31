@@ -3,63 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vikrant - Figuring Things Out</title>
+    <title>Vikrant Chhabria</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
     <canvas id="bg"></canvas>
-
+    
     <div class="hero">
-        <h1>Hey, I'm Vikrant</h1>
-        <p class="tagline">Overthinker. Question-asker. Mind-changer.</p>
+        <h1>Vikrant Chhabria</h1>
+        <p>Just figuring things out. ChatGPT enthusiast. Free food connoisseur.</p>
     </div>
-
     <section class="content">
-        <h2>My Journey</h2>
-        <p>From being a cashier at Paris Panini to helping startups with systems and strategy, I've had quite the journey. At Popo Ventures, I combined my love for learning with my love for free food.</p>
-        <p>I once built an entire Notion workspace for a personal concierge startup. Did I disappoint my mentors? Maybe. But that's how we learn, right?</p>
+        <h2>Things I’ve Done</h2>
+        <p>Worked at Popo Ventures. Ate a lot of free food. Learned a ton.</p>
+        <p>Obsessed with ChatGPT & automation. Thinking about the future.</p>
+        <p>Inspired by <em>The Last Lecture</em> by Randy Pausch.</p>
     </section>
-
-    <section class="content">
-        <h2>Influences & Thoughts</h2>
-        <p>Inspired by thinkers like Paul Graham, Nikhil Kamath, and Randy Pausch (if you haven't read The Last Lecture, you should).</p>
-        <p>I'm drawn to deep questions and first-principle thinking. Got feedback from Zomato once that I should structure my thoughts better. Still working on it.</p>
-    </section>
-
-    <section class="content">
-        <h2>Current Chapter</h2>
-        <p>Right now? I'm deep into AI automation, experimenting with business ideas, and building this website.</p>
-        <p>Oh, and if you're a student looking for stuff, check out my <a href="#" class="glitch-link">OLX section</a>.</p>
-    </section>
-
+    
     <section class="contact">
-        <h2>Let's Connect</h2>
+        <h2>Reach Out</h2>
         <p>Email: <a href="mailto:vikrantchhabria4@gmail.com">vikrantchhabria4@gmail.com</a></p>
         <p>Phone: <a href="tel:+919791017925">+91 9791017925</a></p>
-        <p class="footer-note">No grand vision to change the world (for now). Just taking things one step at a time.</p>
     </section>
-
-    <script src="script.js"></script>
+    
     <script>
-        // Three.js animated background (Retained from original)
+        gsap.from("h1", { opacity: 0, y: -50, duration: 1 });
+        gsap.from("p", { opacity: 0, y: 20, duration: 1, delay: 0.5, stagger: 0.2 });
+        
+        // Three.js animated background
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector("#bg") });
         renderer.setSize(window.innerWidth, window.innerHeight);
-
+        
         const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
         const material = new THREE.MeshStandardMaterial({ color: 0x44aa88, metalness: 1, roughness: 0 });
         const torusKnot = new THREE.Mesh(geometry, material);
         scene.add(torusKnot);
-
+        
         const light = new THREE.PointLight(0xffffff, 1);
         light.position.set(10, 10, 10);
         scene.add(light);
-
+        
         camera.position.z = 30;
-
+        
         function animate() {
             requestAnimationFrame(animate);
             torusKnot.rotation.x += 0.01;
