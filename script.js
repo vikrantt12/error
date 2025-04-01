@@ -14,19 +14,30 @@ camera.position.setZ(30);
 
 // Create animated background particles
 const particlesGeometry = new THREE.BufferGeometry();
-const particlesCount = 15000;
+const particlesCount = 8000;
 const posArray = new Float32Array(particlesCount * 3);
+const velocityArray = new Float32Array(particlesCount * 3);
 
-for(let i = 0; i < particlesCount * 3; i++) {
-    posArray[i] = (Math.random() - 0.5) * 100;
+for(let i = 0; i < particlesCount * 3; i += 3) {
+    const radius = 50;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.random() * Math.PI;
+    
+    posArray[i] = radius * Math.sin(phi) * Math.cos(theta);
+    posArray[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+    posArray[i + 2] = radius * Math.cos(phi);
+    
+    velocityArray[i] = (Math.random() - 0.5) * 0.1;
+    velocityArray[i + 1] = (Math.random() - 0.5) * 0.1;
+    velocityArray[i + 2] = (Math.random() - 0.5) * 0.1;
 }
 
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.008,
-    color: 0xff00ff,
+    size: 0.02,
+    color: 0x4a4aff,
     transparent: true,
-    opacity: 0.8,
+    opacity: 0.6,
     blending: THREE.AdditiveBlending
 });
 
@@ -118,13 +129,27 @@ document.querySelectorAll('.content-card').forEach(card => {
 function animate() {
     requestAnimationFrame(animate);
     
-    particlesMesh.rotation.y += 0.0005;
-    particlesMesh.rotation.x += 0.0002;
+    const positions = particlesGeometry.attributes.position.array;
+    for(let i = 0; i < positions.length; i += 3) {
+        positions[i] += velocityArray[i];
+        positions[i + 1] += velocityArray[i + 1];
+        positions[i + 2] += velocityArray[i + 2];
+        
+        if(Math.abs(positions[i]) > 50) velocityArray[i] *= -1;
+        if(Math.abs(positions[i + 1]) > 50) velocityArray[i + 1] *= -1;
+        if(Math.abs(positions[i + 2]) > 50) velocityArray[i + 2] *= -1;
+    }
+    particlesGeometry.attributes.position.needsUpdate = true;
     
     shapes.forEach(shape => {
-        shape.rotation.x += 0.002;
-        shape.rotation.y += 0.003;
+        shape.rotation.x += 0.001;
+        shape.rotation.y += 0.002;
+        shape.position.y = Math.sin(Date.now() * 0.001) * 2;
     });
+    
+    camera.position.x = Math.sin(Date.now() * 0.0002) * 10;
+    camera.position.z = 30 + Math.cos(Date.now() * 0.0002) * 10;
+    camera.lookAt(0, 0, 0);
     
     renderer.render(scene, camera);
 }

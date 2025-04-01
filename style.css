@@ -1,10 +1,10 @@
 :root {
-    --bg-color: #0a0a0a;
-    --text-color: #00ff9d;
-    --accent-color: #ff00ff;
-    --neon-glow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color), 0 0 30px var(--accent-color);
-    --glitch-color1: #0ff;
-    --glitch-color2: #f0f;
+    --bg-color: #0f0f1a;
+    --text-color: #e0e0ff;
+    --accent-color: #4a4aff;
+    --neon-glow: 0 0 5px rgba(74, 74, 255, 0.3);
+    --glitch-color1: #4a4aff;
+    --glitch-color2: #6464ff;
 }
 
 * {
