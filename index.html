@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vikrant Chhabria | Digital Explorer</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
 </head>
@@ -12,45 +14,71 @@
     <canvas id="bg"></canvas>
 
     <main>
-        <header>
-            <nav>
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#work" class="nav-link">Work</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </nav>
-        </header>
+        <nav>
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#journey" class="nav-link">Journey</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
 
         <section id="home" class="section">
-            <h1 class="glitch-text">Vikrant Chhabria</h1>
-            <p class="subtitle">Digital Explorer | Creator | Innovator</p>
+            <div class="content-card">
+                <h1>Vikrant Chhabria</h1>
+                <p class="subtitle">Digital Explorer | Creator | Innovator</p>
+                <p>A curious mind and aspiring creator focused on making meaningful impact through technology and innovation.</p>
+            </div>
         </section>
 
         <section id="about" class="section">
             <div class="content-card">
-                <h2>About Me</h2>
-                <p>Curious mind and aspiring creator focused on making meaningful impact. From Paris Panini to Popo Ventures, my journey has been about learning, growing, and building purposeful solutions.</p>
+                <h2>Philosophy & Vision</h2>
+                <p>I believe in first-principles thinking, breaking down complex problems to their core to build efficient and innovative solutions. Influenced by thinkers like Paul Graham and Marcus Aurelius, I focus on reflection, simplicity, and purposeful creation.</p>
                 <div class="values">
                     <span>Curiosity</span>
                     <span>Impact</span>
                     <span>Minimalism</span>
-                    <span>Learning</span>
+                    <span>Innovation</span>
+                    <span>Continuous Learning</span>
                 </div>
             </div>
         </section>
 
-        <section id="work" class="section">
+        <section id="journey" class="section">
             <div class="content-card">
-                <h2>Experience</h2>
+                <h2>My Journey</h2>
                 <div class="timeline">
                     <div class="timeline-item">
                         <h3>Popo Ventures</h3>
                         <p>Strategic Planning & Operations</p>
+                        <p>Led marketing efforts and contributed to decision-making processes in a dynamic startup environment.</p>
                     </div>
                     <div class="timeline-item">
-                        <h3>Paris Panini</h3>
+                        <h3>Paris Panini, Bangalore</h3>
                         <p>Business Operations</p>
+                        <p>Learned entrepreneurship fundamentals and the power of scaling from small ideas.</p>
                     </div>
+                    <div class="timeline-item">
+                        <h3>Education</h3>
+                        <p>International Finance at Christ University, Bangalore</p>
+                        <p>Certified in Financial Risk Management (FRM, Part 1)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="content-card">
+                <h2>Tech & Skills</h2>
+                <div class="values">
+                    <span>Python</span>
+                    <span>Git & GitHub</span>
+                    <span>React</span>
+                    <span>Node.js</span>
+                    <span>Flask</span>
+                    <span>AI Automation</span>
+                    <span>Financial Risk Management</span>
+                    <span>Strategic Planning</span>
                 </div>
             </div>
         </section>
@@ -59,17 +87,13 @@
             <div class="content-card">
                 <h2>Let's Connect</h2>
                 <div class="contact-info">
-                    <a href="mailto:vikrantchhabria4@gmail.com" class="contact-link">
-                        <span>vikrantchhabria4@gmail.com</span>
-                    </a>
-                    <a href="tel:+919791017925" class="contact-link">
-                        <span>+91 97910 17925</span>
-                    </a>
+                    <a href="mailto:vikrantchhabria4@gmail.com" class="contact-link">vikrantchhabria4@gmail.com</a>
+                    <a href="tel:+919791017925" class="contact-link">+91 97910 17925</a>
                 </div>
                 <form id="contact-form">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" required></textarea>
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
             </div>

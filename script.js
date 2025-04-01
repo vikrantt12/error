@@ -1,5 +1,3 @@
-// Initialize EmailJS (This part remains from the original code)
-emailjs.init("YOUR_PUBLIC_KEY");
 
 // Three.js setup
 const scene = new THREE.Scene();
@@ -14,9 +12,9 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
 
-// Create particles (modified from original)
+// Create animated background particles
 const particlesGeometry = new THREE.BufferGeometry();
-const particlesCount = 5000;
+const particlesCount = 8000;
 const posArray = new Float32Array(particlesCount * 3);
 
 for(let i = 0; i < particlesCount * 3; i++) {
@@ -35,111 +33,49 @@ const particlesMaterial = new THREE.PointsMaterial({
 const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particlesMesh);
 
+// Create floating geometric shapes
+const shapes = [];
+const geometries = [
+    new THREE.TorusGeometry(2, 0.5, 16, 100),
+    new THREE.OctahedronGeometry(1.5),
+    new THREE.TetrahedronGeometry(1.5)
+];
 
-// Scroll animations
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
+for(let i = 0; i < 5; i++) {
+    const geometry = geometries[Math.floor(Math.random() * geometries.length)];
+    const material = new THREE.MeshStandardMaterial({
+        color: 0x64ffda,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.3
     });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.content-card').forEach(card => {
-    observer.observe(card);
-});
-
-
-// Mini Game Setup (This part remains largely unchanged from the original code)
-const engine = Matter.Engine.create();
-const world = engine.world;
-const render = Matter.Render.create({
-    element: document.querySelector('#game-canvas'),
-    engine: engine,
-    options: {
-        width: 800,
-        height: 400,
-        wireframes: false,
-        background: 'transparent'
-    }
-});
-
-let score = 0;
-let level = 1;
-
-function createGameObjects() {
-    const ground = Matter.Bodies.rectangle(400, 390, 810, 20, { 
-        isStatic: true,
-        render: { fillStyle: '#64ffda' }
-    });
-    
-    Matter.World.add(world, ground);
-    
-    setInterval(() => {
-        const circle = Matter.Bodies.circle(
-            Math.random() * 800,
-            0,
-            10,
-            {
-                render: {
-                    fillStyle: '#64ffda'
-                }
-            }
-        );
-        Matter.World.add(world, circle);
-    }, 1000);
+    const shape = new THREE.Mesh(geometry, material);
+    shape.position.set(
+        (Math.random() - 0.5) * 50,
+        (Math.random() - 0.5) * 50,
+        (Math.random() - 0.5) * 50
+    );
+    shapes.push(shape);
+    scene.add(shape);
 }
 
-Matter.Events.on(engine, 'collisionStart', () => {
-    score += 10;
-    document.getElementById('score').textContent = score;
-    if(score > level * 100) {
-        level++;
-        document.getElementById('level').textContent = level;
-    }
-});
+// Add ambient and point lights
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const pointLight = new THREE.PointLight(0x64ffda, 2);
+pointLight.position.set(5, 5, 5);
+scene.add(ambientLight, pointLight);
 
-Matter.Engine.run(engine);
-Matter.Render.run(render);
-createGameObjects();
-
-
-// Contact form handling (rewritten from original)
-document.getElementById('contact-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        message: formData.get('message'),
-        to_email: 'vikrantchhabria4@gmail.com' //added to_email
-    };
-
-    try {
-        // Here you would typically send the data to your backend using fetch or similar
-        const response = await fetch('/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+// Smooth scroll animation
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        console.log('Form submitted:', data);
-        alert('Message sent successfully!');
-        e.target.reset();
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Failed to send message. Please try again.');
-    }
+    });
 });
 
-
-// Mouse parallax effect
+// Parallax effect on mouse move
 document.addEventListener('mousemove', (e) => {
     const mouseX = e.clientX / window.innerWidth - 0.5;
     const mouseY = e.clientY / window.innerHeight - 0.5;
@@ -149,21 +85,81 @@ document.addEventListener('mousemove', (e) => {
         y: mouseX * 0.5,
         duration: 2
     });
+
+    shapes.forEach(shape => {
+        gsap.to(shape.rotation, {
+            x: mouseY * 0.2,
+            y: mouseX * 0.2,
+            duration: 2
+        });
+    });
 });
 
-// Responsive handling (from edited code)
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            gsap.from(entry.target, {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power2.out"
+            });
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.content-card').forEach(card => {
+    observer.observe(card);
+});
+
+// Animation loop
+function animate() {
+    requestAnimationFrame(animate);
+    
+    particlesMesh.rotation.y += 0.0005;
+    particlesMesh.rotation.x += 0.0002;
+    
+    shapes.forEach(shape => {
+        shape.rotation.x += 0.002;
+        shape.rotation.y += 0.003;
+    });
+    
+    renderer.render(scene, camera);
+}
+
+animate();
+
+// Handle window resize
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// Animation (from edited code)
-function animate() {
-    requestAnimationFrame(animate);
-    particlesMesh.rotation.y += 0.0005;
-    particlesMesh.rotation.x += 0.0002;
-    renderer.render(scene, camera);
-}
+// Form handling
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        message: formData.get('message')
+    };
 
-animate();
+    try {
+        const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        alert('Message sent successfully!');
+        e.target.reset();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to send message. Please try again.');
+    }
+});
