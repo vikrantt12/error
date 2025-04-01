@@ -14,7 +14,7 @@ camera.position.setZ(30);
 
 // Create animated background particles
 const particlesGeometry = new THREE.BufferGeometry();
-const particlesCount = 8000;
+const particlesCount = 15000;
 const posArray = new Float32Array(particlesCount * 3);
 
 for(let i = 0; i < particlesCount * 3; i++) {
@@ -23,8 +23,8 @@ for(let i = 0; i < particlesCount * 3; i++) {
 
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.005,
-    color: 0x64ffda,
+    size: 0.008,
+    color: 0xff00ff,
     transparent: true,
     opacity: 0.8,
     blending: THREE.AdditiveBlending
