@@ -1,0 +1,55 @@
+👋 Hello, I'm Vikrant
+
+I’m a curious mind and an aspiring creator with a focus on making a meaningful impact in the world. Currently, I’m navigating my way through the world of business, technology, and personal growth. I believe that simplicity is at the heart of innovation, and my mission is to solve complex problems in straightforward, human ways. Through my work and projects, I want to build something that’s both enduring and deeply aligned with my values.
+
+📚 My Journey
+
+I started my career as a cashier at Paris Panini in Bangalore, where I spent my college years learning the ins and outs of business operations. Little did I know that this job would shape my understanding of entrepreneurship and the power of scaling from small ideas. From there, I joined Popo Ventures, where I got my first hands-on experience in a dynamic startup environment. During my time there, I helped with routine hygiene checks, assisted with marketing efforts, and contributed to strategic planning and decision-making processes.
+
+Along the way, I realized my passion lies in finding purpose—both in my personal life and in the work I do. Whether it's exploring the role of brands in our society or figuring out how to contribute meaningfully to the world, I’m always asking big questions and trying to figure out the best way to answer them.
+
+💡 My Philosophy
+
+I believe in first-principles thinking, which helps me break down problems to their core and rebuild solutions that are efficient and innovative. I’ve been influenced by thinkers like Paul Graham and Marcus Aurelius, whose writings emphasize the importance of reflection, simplicity, and focus. The goal is not just to build something successful but to build something with purpose.
+
+At my core, I value:
+
+Curiosity: Constantly questioning the world around me and finding new ways to understand it.
+Impact: Striving to make a difference, not just in business but in how people think about the world and themselves.
+Minimalism: Focusing on what truly matters and removing excess.
+Continuous Learning: Staying humble and always eager to grow.
+📈 Career Highlights
+
+Worked at Popo Ventures: Supported operational strategy and marketing.
+Pursuing Entrepreneurship: Creating and iterating on my own ideas, with a focus on building a luxury handwoven clothing brand that connects culture and craftsmanship.
+Finance Background: Currently a final-year student of International Finance at Christ University, Bangalore, and certified in Financial Risk Management (FRM, Part 1).
+Exploring AI & Automation: Recently, I created an AI agent using the Gemini API and have been experimenting with AI automation to streamline processes and build smarter systems.
+💻 Tech & Skills
+
+While I started my career in the business world, I’ve increasingly shifted towards the intersection of technology and innovation. My latest project involves integrating Python, Git, and APIs to automate workflows and make life easier for those seeking simplicity in their processes.
+
+Key skills and technologies I’m working with:
+
+Python (Beginner to Intermediate): Building foundational skills in coding with the goal of becoming proficient in software engineering.
+Git & GitHub: Managing code and collaborating on projects.
+Frontend & Backend Development: Building full-stack applications, including working with React, Node.js, and Flask.
+AI Automation: Using AI tools and APIs to automate repetitive tasks and streamline work processes.
+🌍 My Interests
+
+Outside of tech and business, I’m passionate about:
+
+Philosophy & Self-Improvement: Reading works by Marcus Aurelius, Seneca, and others who emphasize the importance of mindfulness, resilience, and clarity of purpose.
+Minimalism: A lifestyle that prioritizes simplicity, helping me focus on the things that truly matter.
+Travel & Culture: Learning about different cultures, particularly through the lens of craftsmanship, and how the rich heritage of India influences the global fashion scene.
+Food: I’m always interested in how food can bring people together, and I’ve had the chance to learn from food entrepreneurs like Revant.
+🚀 Current Projects
+
+Building a Luxury Clothing Brand: Crafting handwoven, minimalistic clothing that blends traditional craftsmanship with modern design.
+Exploring AI Automation: Continuing to develop and refine my AI automation projects, learning from the latest in AI and machine learning.
+Personal Website: A platform where I can showcase my projects, share my journey, and engage with like-minded individuals.
+🎯 My Goals
+
+Create Impact: Build a company that doesn’t just focus on profit, but on making a real difference in people’s lives.
+Master Software Engineering: Become highly proficient in coding and software engineering to have the skills of an OpenAI engineer.
+Pursue Meaningful Work: Continue to build projects that align with my values and contribute to the greater good.
+Explore Philosophy: Keep diving into the deeper questions about life, purpose, and what it means to truly succeed
