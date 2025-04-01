@@ -1,16 +1,22 @@
-
-// Initialize EmailJS
+// Initialize EmailJS (This part remains from the original code)
 emailjs.init("YOUR_PUBLIC_KEY");
 
-// Three.js Setup
+// Three.js setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector("#bg"), alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
+const renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector('#bg'),
+    antialias: true,
+    alpha: true
+});
 
-// Create particle system
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+camera.position.setZ(30);
+
+// Create particles (modified from original)
 const particlesGeometry = new THREE.BufferGeometry();
-const particlesCount = 15000;
+const particlesCount = 5000;
 const posArray = new Float32Array(particlesCount * 3);
 
 for(let i = 0; i < particlesCount * 3; i++) {
@@ -29,47 +35,22 @@ const particlesMaterial = new THREE.PointsMaterial({
 const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particlesMesh);
 
-// Add neural network visualization
-const nodesCount = 50;
-const nodes = [];
-const connections = [];
 
-function createNodes() {
-    const container = document.querySelector('.nodes');
-    for(let i = 0; i < nodesCount; i++) {
-        const node = document.createElement('div');
-        node.className = 'node';
-        node.style.left = `${Math.random() * 100}%`;
-        node.style.top = `${Math.random() * 100}%`;
-        container.appendChild(node);
-        nodes.push({
-            element: node,
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            vx: (Math.random() - 0.5) * 2,
-            vy: (Math.random() - 0.5) * 2
-        });
-    }
-}
-
-function updateNodes() {
-    nodes.forEach(node => {
-        node.x += node.vx;
-        node.y += node.vy;
-        
-        if(node.x <= 0 || node.x >= window.innerWidth) node.vx *= -1;
-        if(node.y <= 0 || node.y >= window.innerHeight) node.vy *= -1;
-        
-        node.element.style.transform = `translate(${node.x}px, ${node.y}px)`;
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
     });
-    
-    requestAnimationFrame(updateNodes);
-}
+}, { threshold: 0.1 });
 
-createNodes();
-updateNodes();
+document.querySelectorAll('.content-card').forEach(card => {
+    observer.observe(card);
+});
 
-// Mini Game Setup
+
+// Mini Game Setup (This part remains largely unchanged from the original code)
 const engine = Matter.Engine.create();
 const world = engine.world;
 const render = Matter.Render.create({
@@ -122,95 +103,66 @@ Matter.Engine.run(engine);
 Matter.Render.run(render);
 createGameObjects();
 
-// Contact form handling
-document.getElementById('contact-form').addEventListener('submit', function(e) {
+
+// Contact form handling (rewritten from original)
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    const btn = this.querySelector('button');
-    btn.classList.add('loading');
-    
-    const templateParams = {
-        from_name: document.getElementById('name').value,
-        from_email: document.getElementById('email').value,
-        message: document.getElementById('message').value,
-        to_email: 'vikrantchhabria4@gmail.com'
+    const formData = new FormData(e.target);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        message: formData.get('message'),
+        to_email: 'vikrantchhabria4@gmail.com' //added to_email
     };
 
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-        .then(() => {
-            createParticleExplosion(btn);
-            alert('Message sent successfully!');
-            this.reset();
-        })
-        .catch(() => {
-            alert('Failed to send message. Please try again.');
-        })
-        .finally(() => {
-            btn.classList.remove('loading');
+    try {
+        // Here you would typically send the data to your backend using fetch or similar
+        const response = await fetch('/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        console.log('Form submitted:', data);
+        alert('Message sent successfully!');
+        e.target.reset();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to send message. Please try again.');
+    }
 });
 
-function createParticleExplosion(element) {
-    const particles = [];
-    const rect = element.getBoundingClientRect();
-    
-    for(let i = 0; i < 30; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = rect.left + rect.width/2 + 'px';
-        particle.style.top = rect.top + rect.height/2 + 'px';
-        document.body.appendChild(particle);
-        
-        const angle = (i / 30) * Math.PI * 2;
-        const velocity = 5;
-        const vx = Math.cos(angle) * velocity;
-        const vy = Math.sin(angle) * velocity;
-        
-        particles.push({
-            element: particle,
-            vx,
-            vy,
-            life: 1
-        });
-    }
-    
-    function updateParticles() {
-        particles.forEach((particle, index) => {
-            particle.life -= 0.02;
-            particle.element.style.opacity = particle.life;
-            
-            const x = parseFloat(particle.element.style.left);
-            const y = parseFloat(particle.element.style.top);
-            
-            particle.element.style.left = x + particle.vx + 'px';
-            particle.element.style.top = y + particle.vy + 'px';
-            
-            if(particle.life <= 0) {
-                particle.element.remove();
-                particles.splice(index, 1);
-            }
-        });
-        
-        if(particles.length > 0) {
-            requestAnimationFrame(updateParticles);
-        }
-    }
-    
-    updateParticles();
-}
 
-// Handle window resize
+// Mouse parallax effect
+document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth - 0.5;
+    const mouseY = e.clientY / window.innerHeight - 0.5;
+
+    gsap.to(particlesMesh.rotation, {
+        x: mouseY * 0.5,
+        y: mouseX * 0.5,
+        duration: 2
+    });
+});
+
+// Responsive handling (from edited code)
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// Animation
+// Animation (from edited code)
 function animate() {
     requestAnimationFrame(animate);
-    particlesMesh.rotation.y += 0.001;
-    particlesMesh.rotation.x += 0.001;
+    particlesMesh.rotation.y += 0.0005;
+    particlesMesh.rotation.x += 0.0002;
     renderer.render(scene, camera);
 }
 

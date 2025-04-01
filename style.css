@@ -1,23 +1,20 @@
+:root {
+    --bg-color: #0a0a0a;
+    --text-color: #ffffff;
+    --accent-color: #64ffda;
+    --card-bg: rgba(255, 255, 255, 0.05);
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "SF Mono", "Fira Code", monospace;
-}
-
-:root {
-    --primary: #0a0a0a;
-    --accent: #64ffda;
-    --text: #e6e6e6;
-    --dark: #050505;
-    --neon: #ff00ff;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
-    background: var(--primary);
-    color: var(--text);
-    line-height: 1.6;
+    background: var(--bg-color);
+    color: var(--text-color);
     overflow-x: hidden;
 }
 
@@ -28,40 +25,29 @@ body {
     z-index: -1;
 }
 
-.neural-network {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.nodes {
+main {
     position: relative;
-    width: 100%;
-    height: 100%;
+    z-index: 1;
 }
 
 nav {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 20px;
+    padding: 2rem;
     display: flex;
     justify-content: flex-end;
-    gap: 30px;
-    z-index: 100;
+    gap: 2rem;
     backdrop-filter: blur(10px);
+    z-index: 100;
 }
 
 .nav-link {
-    cursor: pointer;
+    color: var(--text-color);
+    text-decoration: none;
     position: relative;
-    padding: 5px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: color 0.3s;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 .nav-link::after {
@@ -71,17 +57,146 @@ nav {
     height: 2px;
     bottom: 0;
     left: 0;
-    background: var(--accent);
-    transition: width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    background: var(--accent-color);
+    transition: width 0.3s ease;
 }
 
 .nav-link:hover::after {
     width: 100%;
 }
 
-.nav-link:hover {
-    color: var(--accent);
+.section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
 }
+
+.content-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 800px;
+    width: 100%;
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-card.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.glitch-text {
+    font-size: 4rem;
+    font-weight: bold;
+    position: relative;
+    text-shadow: 0.05em 0 0 rgba(255,0,0,0.75),
+                -0.025em -0.05em 0 rgba(0,255,0,0.75),
+                0.025em 0.05em 0 rgba(0,0,255,0.75);
+    animation: glitch 500ms infinite;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    margin-top: 1rem;
+}
+
+.values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.values span {
+    padding: 0.5rem 1rem;
+    background: rgba(100, 255, 218, 0.1);
+    border-radius: 2rem;
+    font-size: 0.9rem;
+}
+
+.timeline {
+    margin-top: 2rem;
+}
+
+.timeline-item {
+    padding: 1rem 0;
+    border-left: 2px solid var(--accent-color);
+    padding-left: 2rem;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 24px;
+    width: 10px;
+    height: 10px;
+    background: var(--accent-color);
+    border-radius: 50%;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.contact-link {
+    color: var(--text-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: var(--accent-color);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input, textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-btn {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+}
+
 
 .hero {
     height: 100vh;
@@ -93,16 +208,6 @@ nav {
     position: relative;
 }
 
-.glitch {
-    font-size: 4rem;
-    font-weight: bold;
-    position: relative;
-    text-shadow: 0.05em 0 0 rgba(255,0,0,0.75),
-                -0.025em -0.05em 0 rgba(0,255,0,0.75),
-                0.025em 0.05em 0 rgba(0,0,255,0.75);
-    animation: glitch 500ms infinite;
-}
-
 .social-links {
     margin-top: 30px;
     display: flex;
@@ -110,10 +215,10 @@ nav {
 }
 
 .social-link {
-    color: var(--text);
+    color: var(--text-color);
     text-decoration: none;
     padding: 10px 20px;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--accent-color);
     border-radius: 4px;
     transition: all 0.3s;
     position: relative;
@@ -127,7 +232,7 @@ nav {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: var(--accent);
+    background: var(--accent-color);
     transition: transform 0.3s;
     z-index: -1;
 }
@@ -205,7 +310,7 @@ nav {
 
 .work-meta span {
     font-size: 0.8em;
-    color: var(--accent);
+    color: var(--accent-color);
 }
 
 .game-container {
@@ -240,7 +345,7 @@ nav {
     background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 5px;
-    color: var(--text);
+    color: var(--text-color);
     font-size: 16px;
     transition: all 0.3s;
 }
@@ -251,7 +356,7 @@ nav {
     left: 50%;
     width: 0;
     height: 2px;
-    background: var(--accent);
+    background: var(--accent-color);
     transition: all 0.3s;
 }
 
@@ -264,8 +369,8 @@ nav {
 .submit-btn {
     padding: 15px 30px;
     background: transparent;
-    color: var(--accent);
-    border: 2px solid var(--accent);
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
@@ -275,7 +380,7 @@ nav {
 }
 
 .submit-btn:hover {
-    background: var(--accent);
+    background: var(--accent-color);
     color: var(--dark);
 }
 
@@ -290,28 +395,39 @@ nav {
 
 @keyframes glitch {
     0% { 
-        clip-path: inset(71% 0 10% 0);
-        transform: translate(-2px, 2px);
+        text-shadow: 0.05em 0 0 rgba(255,0,0,0.75),
+                    -0.025em -0.05em 0 rgba(0,255,0,0.75),
+                    0.025em 0.05em 0 rgba(0,0,255,0.75);
     }
-    20% {
-        clip-path: inset(29% 0 71% 0);
-        transform: translate(-1px, 1px);
+    14% {
+        text-shadow: 0.05em 0 0 rgba(255,0,0,0.75),
+                    -0.025em -0.05em 0 rgba(0,255,0,0.75),
+                    0.025em 0.05em 0 rgba(0,0,255,0.75);
     }
-    40% {
-        clip-path: inset(83% 0 43% 0);
-        transform: translate(1px, -1px);
+    15% {
+        text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75),
+                    0.025em 0.025em 0 rgba(0,255,0,0.75),
+                    -0.05em -0.05em 0 rgba(0,0,255,0.75);
     }
-    60% {
-        clip-path: inset(96% 0 7% 0);
-        transform: translate(2px, -2px);
+    49% {
+        text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75),
+                    0.025em 0.025em 0 rgba(0,255,0,0.75),
+                    -0.05em -0.05em 0 rgba(0,0,255,0.75);
     }
-    80% {
-        clip-path: inset(59% 0 43% 0);
-        transform: translate(-1px, 2px);
+    50% {
+        text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75),
+                    0.05em 0 0 rgba(0,255,0,0.75),
+                    0 -0.05em 0 rgba(0,0,255,0.75);
+    }
+    99% {
+        text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75),
+                    0.05em 0 0 rgba(0,255,0,0.75),
+                    0 -0.05em 0 rgba(0,0,255,0.75);
     }
     100% {
-        clip-path: inset(71% 0 10% 0);
-        transform: translate(2px, -2px);
+        text-shadow: -0.025em 0 0 rgba(255,0,0,0.75),
+                    -0.025em -0.025em 0 rgba(0,255,0,0.75),
+                    -0.025em -0.05em 0 rgba(0,0,255,0.75);
     }
 }
 
