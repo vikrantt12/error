@@ -44,21 +44,30 @@ const particlesMaterial = new THREE.PointsMaterial({
 const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particlesMesh);
 
-// Create floating geometric shapes
+// Create advanced 3D shapes
 const shapes = [];
 const geometries = [
-    new THREE.TorusGeometry(2, 0.5, 16, 100),
-    new THREE.OctahedronGeometry(1.5),
-    new THREE.TetrahedronGeometry(1.5)
+    new THREE.TorusKnotGeometry(2, 0.5, 100, 16),
+    new THREE.IcosahedronGeometry(1.5, 1),
+    new THREE.OctahedronGeometry(1.8, 2),
+    new THREE.SphereGeometry(1.2, 32, 32)
 ];
+
+// Add atmospheric fog
+const fog = new THREE.FogExp2(0x0a0f1a, 0.02);
+scene.fog = fog;
 
 for(let i = 0; i < 5; i++) {
     const geometry = geometries[Math.floor(Math.random() * geometries.length)];
-    const material = new THREE.MeshStandardMaterial({
-        color: 0x64ffda,
-        wireframe: true,
+    const material = new THREE.MeshPhysicalMaterial({
+        color: 0x2d4a8a,
+        metalness: 0.8,
+        roughness: 0.2,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.2,
+        wireframe: false,
         transparent: true,
-        opacity: 0.3
+        opacity: 0.7
     });
     const shape = new THREE.Mesh(geometry, material);
     shape.position.set(
@@ -71,10 +80,14 @@ for(let i = 0; i < 5; i++) {
 }
 
 // Add ambient and point lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-const pointLight = new THREE.PointLight(0x64ffda, 2);
-pointLight.position.set(5, 5, 5);
-scene.add(ambientLight, pointLight);
+const ambientLight = new THREE.AmbientLight(0x2d4a8a, 0.4);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 5, 5);
+const pointLight1 = new THREE.PointLight(0x2d4a8a, 2, 50);
+pointLight1.position.set(-15, 10, 10);
+const pointLight2 = new THREE.PointLight(0x1a2a4a, 2, 50);
+pointLight2.position.set(15, -10, -10);
+scene.add(ambientLight, directionalLight, pointLight1, pointLight2);
 
 // Smooth scroll animation
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
